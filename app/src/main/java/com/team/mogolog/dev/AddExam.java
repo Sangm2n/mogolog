@@ -55,6 +55,8 @@ public class AddExam {
     }
 
     // 시험 데이터 넣기 -> 필요할 때마다 함수 본문 직접 수정
+    /*ExamListFragment에서 AddExam.seed() 실행 후
+    Firebase에 저장된 것을 확인하면 지워줘야함. */
     public static void seed() {
         FirebaseFirestore db = FirebaseFirestore.getInstance(); //Firestore 연결하기
         List<String> all = allSubjects(); // 전과목 목록 all에 저장하기
