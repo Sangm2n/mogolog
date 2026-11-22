@@ -2,6 +2,8 @@ package com.team.mogolog;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import android.app.Instrumentation;
@@ -9,8 +11,12 @@ import android.os.SystemClock;
 import android.view.InputDevice;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.ListView;
 
 import androidx.test.core.app.ActivityScenario;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -21,6 +27,45 @@ import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 public class MainNavigationTest {
+
+    @Test
+    public void homeReviewAndExampleDataStayInsideHome() {
+        try (ActivityScenario<MainActivity> scenario = ActivityScenario.launch(MainActivity.class)) {
+            assertVisibleTab(scenario, R.id.nav_home, R.id.home_title);
+            scenario.onActivity(activity -> {
+                activity.findViewById(R.id.home_demo_action).performClick();
+                activity.findViewById(R.id.home_review_action).performClick();
+                Fragment home = activity.getSupportFragmentManager().getPrimaryNavigationFragment();
+                assertNotNull(home);
+                FragmentManager homeChildren = home.getChildFragmentManager();
+                HomeReviewDialog review = (HomeReviewDialog) homeChildren.findFragmentByTag(HomeReviewDialog.TAG);
+                assertNotNull(review);
+                assertNull(activity.getSupportFragmentManager().findFragmentByTag(HomeReviewDialog.TAG));
+
+                CheckBox filter = review.requireDialog().findViewById(R.id.home_review_pending_filter);
+                assertTrue(filter.isChecked());
+                filter.setChecked(false);
+                ListView list = review.requireDialog().findViewById(R.id.home_review_list);
+                assertTrue(list.getCount() > 0);
+                list.performItemClick(list.getChildAt(0), 0, list.getAdapter().getItemId(0));
+                QuestionDetailFragment question = (QuestionDetailFragment)
+                        homeChildren.findFragmentByTag(QuestionDetailFragment.TAG);
+                assertNotNull(question);
+                assertTrue(question.requireView().findViewById(R.id.question_title).isShown());
+                question.dismissNow();
+                review.dismissNow();
+            });
+
+            tapTab(scenario, R.id.nav_records);
+            assertVisibleTab(scenario, R.id.nav_records, R.id.exam_list_title);
+            tapTab(scenario, R.id.nav_community);
+            assertVisibleTab(scenario, R.id.nav_community, R.id.community_title);
+            scenario.onActivity(activity -> {
+                assertNull(activity.findViewById(R.id.home_review_list));
+                assertNull(activity.findViewById(R.id.question_detail_screen));
+            });
+        }
+    }
 
     @Test
     public void tabsShowOnlyTheirOwnScreenAndAllowReselection() {

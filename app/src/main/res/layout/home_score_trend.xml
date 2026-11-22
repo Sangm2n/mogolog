@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/home_score_trend_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/space_10"
+    android:background="@drawable/bg_card"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/space_16"
+    android:paddingTop="@dimen/space_4"
+    android:paddingEnd="@dimen/space_16"
+    android:paddingBottom="@dimen/space_16">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextCardTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_8"
+            android:layout_weight="1"
+            android:text="@string/home_score_trend" />
+
+        <RadioGroup
+            android:id="@+id/home_trend_subjects"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@+id/home_trend_math"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/home_trend_korean"
+                style="@style/HomeTrendSubject"
+                android:text="@string/subject_korean_label" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@id/home_trend_math"
+                style="@style/HomeTrendSubject"
+                android:layout_marginStart="@dimen/space_4"
+                android:text="@string/subject_math_label" />
+
+            <androidx.appcompat.widget.AppCompatRadioButton
+                android:id="@+id/home_trend_english"
+                style="@style/HomeTrendSubject"
+                android:layout_marginStart="@dimen/space_4"
+                android:text="@string/subject_english_label" />
+        </RadioGroup>
+    </LinearLayout>
+
+    <com.team.mogolog.ScoreTrendView
+        android:id="@+id/home_score_trend_chart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_score_chart_height"
+        android:importantForAccessibility="yes" />
+</LinearLayout>
