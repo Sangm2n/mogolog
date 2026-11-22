@@ -23,7 +23,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button buttonGoSignUp;
 
     private FirebaseAuth auth;
-
     private boolean isLoggingIn = false;
 
     @Override
@@ -33,35 +32,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         auth = FirebaseAuth.getInstance();
+
         // 이미 로그인된 사용자는 홈으로 이동
         if (auth.getCurrentUser() != null) {
-            Intent intent = new Intent(
-                    LoginActivity.this,
-                    MainActivity.class
-            );
-
-            intent.addFlags(
-                    Intent.FLAG_ACTIVITY_NEW_TASK
-                            | Intent.FLAG_ACTIVITY_CLEAR_TASK
-            );
-
-            startActivity(intent);
-            finish();
-            return;
-        }// 이미 로그인된 사용자는 홈으로 이동
-        if (auth.getCurrentUser() != null) {
-            Intent intent = new Intent(
-                    LoginActivity.this,
-                    MainActivity.class
-            );
-
-            intent.addFlags(
-                    Intent.FLAG_ACTIVITY_NEW_TASK
-                            | Intent.FLAG_ACTIVITY_CLEAR_TASK
-            );
-
-            startActivity(intent);
-            finish();
+            openHome();
             return;
         }
 
@@ -128,20 +102,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (task.isSuccessful()) {
                         editPassword.setText("");
-
-                        Intent intent = new Intent(
-                                LoginActivity.this,
-                                MainActivity.class
-                        );
-
-                        // 뒤로가기를 눌러 로그인 화면으로 돌아가지 않도록 처리
-                        intent.addFlags(
-                                Intent.FLAG_ACTIVITY_NEW_TASK
-                                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                        );
-
-                        startActivity(intent);
-                        finish();
+                        openHome();
                     } else {
                         Toast.makeText(
                                 LoginActivity.this,
@@ -151,6 +112,21 @@ public class LoginActivity extends AppCompatActivity {
                         ).show();
                     }
                 });
+    }
+
+    private void openHome() {
+        Intent intent = new Intent(
+                LoginActivity.this,
+                MainActivity.class
+        );
+
+        intent.addFlags(
+                Intent.FLAG_ACTIVITY_NEW_TASK
+                        | Intent.FLAG_ACTIVITY_CLEAR_TASK
+        );
+
+        startActivity(intent);
+        finish();
     }
 
     private void setLoading(boolean loading) {
