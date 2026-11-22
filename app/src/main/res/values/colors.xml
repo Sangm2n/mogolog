@@ -19,4 +19,9 @@
     <color name="badge_education_bg">#E3F7EE</color>
     <color name="badge_private_text">#C2620A</color>
     <color name="badge_private_bg">#FFF1E0</color>
+
+    <!-- Surfaces sampled from the home and question-detail designs. -->
+    <color name="surface_muted">#E9ECF3</color>
+    <color name="error">#E53945</color>
+    <color name="error_bg">#FDE7E8</color>
 </resources>

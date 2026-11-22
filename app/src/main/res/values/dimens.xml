@@ -15,4 +15,25 @@
     <dimen name="bottom_nav_height">64dp</dimen>
     <dimen name="bottom_nav_icon_size">22dp</dimen>
     <dimen name="bottom_nav_item_padding">8dp</dimen>
+
+    <dimen name="space_4">4dp</dimen>
+    <dimen name="space_6">6dp</dimen>
+    <dimen name="space_8">8dp</dimen>
+    <dimen name="space_10">10dp</dimen>
+    <dimen name="space_12">12dp</dimen>
+    <dimen name="space_16">16dp</dimen>
+    <dimen name="space_24">24dp</dimen>
+    <dimen name="touch_target_min">48dp</dimen>
+    <dimen name="text_size_card_title">16sp</dimen>
+    <dimen name="text_size_value">24sp</dimen>
+    <dimen name="text_size_day_count">28sp</dimen>
+    <dimen name="home_exam_card_min_height">90dp</dimen>
+    <dimen name="home_score_tile_height">58dp</dimen>
+    <dimen name="home_score_chart_height">96dp</dimen>
+    <dimen name="home_score_chart_label_size">10sp</dimen>
+    <dimen name="home_score_chart_dot_radius">4dp</dimen>
+    <dimen name="home_score_chart_stroke_width">3dp</dimen>
+    <dimen name="review_progress_height">8dp</dimen>
+    <dimen name="question_photo_height">154dp</dimen>
+    <dimen name="question_comment_min_height">72dp</dimen>
 </resources>

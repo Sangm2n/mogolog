@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The full-screen QuestionDetailFragment supplies system-bar/IME insets and data. -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/question_detail_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="@dimen/screen_padding"
+    android:paddingEnd="@dimen/screen_padding"
+    android:paddingBottom="@dimen/space_24">
+
+    <LinearLayout
+        android:id="@+id/question_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/touch_target_min"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/question_back"
+            style="@style/ScreenAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/space_12"
+            android:text="@string/question_back"
+            android:textColor="@color/text_sub"
+            android:textStyle="normal"
+            android:contentDescription="@string/question_back_description"
+            tools:text="‹ 9월 모평 수학" />
+
+        <TextView
+            android:id="@+id/question_title"
+            style="@style/TextExamTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/question_detail_title"
+            tools:text="21번" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/question_content_scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:paddingBottom="@dimen/space_12"
+        app:layout_constraintTop_toBottomOf="@id/question_toolbar"
+        app:layout_constraintBottom_toTopOf="@id/question_community_action"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/question_photo_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/question_photo_height"
+                android:background="@drawable/bg_photo_placeholder">
+
+                <ImageView
+                    android:id="@+id/question_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/question_photo_height"
+                    android:contentDescription="@string/question_photo_title"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/question_photo_placeholder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="@dimen/space_16">
+
+                    <TextView
+                        android:id="@+id/question_photo_label"
+                        style="@style/TextCardTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/question_photo_title"
+                        android:textColor="@color/text_hint" />
+
+                    <TextView
+                        android:id="@+id/question_photo_privacy_label"
+                        style="@style/TextCaption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:text="@string/question_photo_privacy" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/question_capture_photo"
+                        style="@style/ScreenAction"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8"
+                        android:background="@drawable/bg_card"
+                        android:text="@string/question_retake_photo"
+                        android:drawablePadding="@dimen/space_4"
+                        app:drawableStartCompat="@drawable/ic_camera" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/question_badges"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_10">
+
+                <TextView
+                    android:id="@+id/question_wrong_badge"
+                    style="@style/ScreenBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge_error"
+                    android:text="@string/question_wrong_badge"
+                    android:textColor="@color/error" />
+
+                <TextView
+                    android:id="@+id/question_error_rate"
+                    style="@style/ScreenBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge_muted"
+                    android:text="@string/question_error_rate_placeholder"
+                    android:textColor="@color/text_sub"
+                    tools:text="앱 사용자 오답률 71%" />
+
+                <TextView
+                    android:id="@+id/question_elective"
+                    style="@style/ScreenBadge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_badge_kice"
+                    android:text="@string/question_elective_placeholder"
+                    android:textColor="@color/primary"
+                    tools:text="미적분" />
+
+                <androidx.constraintlayout.helper.widget.Flow
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="question_wrong_badge,question_error_rate,question_elective"
+                    app:flow_wrapMode="chain"
+                    app:flow_horizontalStyle="packed"
+                    app:flow_horizontalBias="0"
+                    app:flow_horizontalGap="@dimen/space_6"
+                    app:flow_verticalGap="@dimen/space_6"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/question_comment_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_10"
+                android:background="@drawable/bg_card"
+                android:orientation="vertical"
+                android:padding="@dimen/space_16">
+
+                <TextView
+                    style="@style/TextCardTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:labelFor="@id/question_comment"
+                    android:text="@string/question_comment_title" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/question_comment"
+                    style="@style/TextBody"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:minHeight="@dimen/question_comment_min_height"
+                    android:background="@drawable/bg_card_muted"
+                    android:gravity="top|start"
+                    android:hint="@string/question_comment_hint"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:importantForAutofill="no"
+                    android:padding="@dimen/space_12"
+                    android:textColorHint="@color/text_hint"
+                    app:backgroundTint="@null"
+                    tools:text="극한값 구할 때 분모 0 되는 조건을 놓침. f(x)가 x=1에서 연속인지 먼저 확인하기! 다음엔 그래프 개형부터 그려볼 것." />
+
+                <TextView
+                    style="@style/TextCaption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_8"
+                    android:text="@string/question_saved_locally"
+                    tools:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/question_review_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_10"
+                android:background="@drawable/bg_card"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="@dimen/space_16">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/space_8"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/TextCardTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:labelFor="@id/question_review_done"
+                        android:text="@string/question_review_done" />
+
+                    <TextView
+                        style="@style/TextCaption"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_4"
+                        android:text="@string/question_review_done_description" />
+                </LinearLayout>
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/question_review_done"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="@dimen/touch_target_min"
+                    android:minHeight="@dimen/touch_target_min"
+                    android:contentDescription="@string/question_review_done"
+                    android:checked="false"
+                    android:thumb="@drawable/switch_review_thumb"
+                    app:track="@drawable/switch_review_track"
+                    app:thumbTint="@color/card"
+                    app:trackTint="@color/switch_review_track"
+                    app:splitTrack="false"
+                    app:showText="false"
+                    app:switchMinWidth="44dp"
+                    tools:checked="true" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/question_community_action"
+        style="@style/ScreenAction"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_12"
+        android:background="@drawable/bg_button_outline"
+        android:text="@string/question_community_action"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="이 문항 질문 보기 (12) ›" />
+</androidx.constraintlayout.widget.ConstraintLayout>
