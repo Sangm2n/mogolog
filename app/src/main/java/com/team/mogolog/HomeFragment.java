@@ -1,5 +1,8 @@
 package com.team.mogolog;
 
+import android.content.Intent;
+import com.google.firebase.auth.FirebaseAuth;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -20,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
+
     public HomeFragment() {
         super(R.layout.fragment_home);
     }
@@ -27,6 +31,23 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+      view.findViewById(R.id.buttonLogout)
+        .setOnClickListener(button -> {
+            FirebaseAuth.getInstance().signOut();
+
+            Intent intent = new Intent(
+                    requireContext(),
+                    LoginActivity.class
+            );
+
+            intent.addFlags(
+                    Intent.FLAG_ACTIVITY_NEW_TASK
+                            | Intent.FLAG_ACTIVITY_CLEAR_TASK
+            );
+
+            startActivity(intent);
+            requireActivity().finish();
+        });
         HomeDataModel model = new ViewModelProvider(this).get(HomeDataModel.class);
         RadioGroup subjects = view.findViewById(R.id.home_trend_subjects);
         subjects.setOnCheckedChangeListener((group, id) -> showTrend(view, model.current(), id));
