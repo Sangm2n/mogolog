@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 시험 고르기 화면: 기록 탭 + 버튼 → 시험 선택 → 성적 입력 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:orientation="vertical"
+    tools:context=".ExamPickActivity">
+
+    <!-- 상단 바: 취소 / 제목 -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/exam_pick_cancel"
+            style="@style/TextBody"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:gravity="center_vertical"
+            android:text="‹ 취소"
+            android:textColor="@color/text_sub" />
+
+        <TextView
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="어떤 시험인가요?" />
+    </RelativeLayout>
+
+    <!-- 검색 창 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp">
+
+        <EditText
+            android:id="@+id/exam_pick_search_input"
+            style="@style/TextBody"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_input"
+            android:hint="시험 이름 검색 (예: 9월, 서바이벌)"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp" />
+
+        <Button
+            android:id="@+id/exam_pick_search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_button_primary"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="검색"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+    <!-- 종류 필터 버튼 4개 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp">
+
+        <Button
+            android:id="@+id/exam_pick_filter_all"
+            style="@style/ExamInputChip"
+            android:text="전체" />
+
+        <Button
+            android:id="@+id/exam_pick_filter_kice"
+            style="@style/ExamInputChip"
+            android:text="평가원" />
+
+        <Button
+            android:id="@+id/exam_pick_filter_edu"
+            style="@style/ExamInputChip"
+            android:text="교육청" />
+
+        <Button
+            android:id="@+id/exam_pick_filter_private"
+            style="@style/ExamInputChip"
+            android:text="사설" />
+    </LinearLayout>
+
+    <!-- 시험 목록 (카드 모양은 item_exam_card.xml) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/exam_pick_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="20dp"
+        tools:listitem="@layout/item_exam_card" />
+
+    <!-- 시험이 없거나 불러오지 못했을 때 -->
+    <TextView
+        android:id="@+id/exam_pick_empty"
+        style="@style/TextBody"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:textColor="@color/text_sub"
+        android:visibility="gone" />
+</LinearLayout>
