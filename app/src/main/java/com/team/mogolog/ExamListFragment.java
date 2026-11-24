@@ -1,5 +1,6 @@
 package com.team.mogolog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,9 +16,16 @@ public class ExamListFragment extends Fragment {
         super(R.layout.fragment_exam_list);
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        view.findViewById(R.id.exam_list_add).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(requireActivity(), ExamPickActivity.class));
+            }
+        });
 
     }
 }
