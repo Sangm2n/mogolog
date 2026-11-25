@@ -52,7 +52,6 @@
             android:layout_weight="1"
             android:background="@drawable/bg_input"
             android:hint="시험 이름 검색 (예: 9월, 서바이벌)"
-            android:imeOptions="actionSearch"
             android:inputType="text"
             android:maxLines="1"
             android:paddingStart="12dp"
