@@ -20,13 +20,40 @@
             android:layout_height="wrap_content"
             android:text="@string/title_exam_list" />
 
+        <!-- 종류 필터 버튼 4개 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/exam_list_filter_all"
+                style="@style/ExamInputChip"
+                android:text="전체" />
+
+            <Button
+                android:id="@+id/exam_list_filter_kice"
+                style="@style/ExamInputChip"
+                android:text="평가원" />
+
+            <Button
+                android:id="@+id/exam_list_filter_edu"
+                style="@style/ExamInputChip"
+                android:text="교육청" />
+
+            <Button
+                android:id="@+id/exam_list_filter_private"
+                style="@style/ExamInputChip"
+                android:text="사설" />
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/exam_list_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginTop="@dimen/space_16"
+            android:layout_marginTop="12dp"
             android:clipToPadding="false"
             android:paddingBottom="80dp"
             android:visibility="gone" />
