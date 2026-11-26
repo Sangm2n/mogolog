@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -27,14 +28,17 @@ import com.team.mogolog.model.FirestorePaths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ExamPickActivity extends AppCompatActivity {
 
     private ActivityExamPickBinding binding;
     private final List<Exam> list = new ArrayList<>();
     private String selectedType = null;
+    private Map<String, Integer> inputCount = new HashMap<>(); // 시험별로 입력한 과목 수
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +75,7 @@ public class ExamPickActivity extends AppCompatActivity {
                         }
                     }
                     binding.examPickRecycler.setLayoutManager(new LinearLayoutManager(this));
-                    showExams(); // setAdapter 역할
+                    loadMyScores(); // 내 성적을 센 뒤 목록 보여주기
                 })
                 .addOnFailureListener(e -> {
                     binding.examPickRecycler.setVisibility(View.GONE);
@@ -121,6 +125,12 @@ public class ExamPickActivity extends AppCompatActivity {
             }
 
             cardBinding.examCardDetail.setText(exam.getDate());
+            if (inputCount.get(exam.getId()) != null) {
+                cardBinding.examCardDetail.append(" · " + inputCount.get(exam.getId()) + "과목 입력함");
+                itemView.setBackgroundResource(R.drawable.bg_card_done); // 입력한 시험은 회색 카드
+            } else {
+                itemView.setBackgroundResource(R.drawable.bg_card); // 안 넣은 시험은 흰 카드
+            }
 
             // 시험 배너를 누르면 해당 시험에 대한 정보를 등록하는 Activity로 넘어감
             itemView.setOnClickListener(v -> {
@@ -192,5 +202,22 @@ public class ExamPickActivity extends AppCompatActivity {
 
         selectedType = type;
         showExams();
+    }
+
+    // 내 성적을 불러와 시험별 입력한 과목 수를 센 뒤 목록 보여주기
+    private void loadMyScores() {
+        FirebaseFirestore.getInstance()
+                .collection(FirestorePaths.SCORES)
+                .whereEqualTo("uid", FirebaseAuth.getInstance().getUid())
+                .get()
+                .addOnSuccessListener(result -> {
+                    for (DocumentSnapshot doc : result.getDocuments()) {
+                        String examId = doc.getString("examId");
+                        Integer count = inputCount.get(examId);
+                        if (count == null) count = 0;
+                        inputCount.put(examId, count + 1);
+                    }
+                    showExams();
+                });
     }
 }
