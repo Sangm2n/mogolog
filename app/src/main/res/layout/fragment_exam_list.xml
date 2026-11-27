@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/exam_list_screen"
     android:layout_width="match_parent"
@@ -7,11 +8,85 @@
     android:padding="@dimen/screen_padding"
     tools:context=".ExamListFragment">
 
-    <TextView
-        android:id="@+id/exam_list_title"
-        style="@style/TextTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_exam_list" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/exam_list_title"
+            style="@style/TextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_exam_list" />
+
+        <!-- 종류 필터 버튼 4개 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/exam_list_filter_all"
+                style="@style/ExamInputChip"
+                android:text="전체" />
+
+            <Button
+                android:id="@+id/exam_list_filter_kice"
+                style="@style/ExamInputChip"
+                android:text="평가원" />
+
+            <Button
+                android:id="@+id/exam_list_filter_edu"
+                style="@style/ExamInputChip"
+                android:text="교육청" />
+
+            <Button
+                android:id="@+id/exam_list_filter_private"
+                style="@style/ExamInputChip"
+                android:text="사설" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/exam_list_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="12dp"
+            android:clipToPadding="false"
+            android:paddingBottom="80dp"
+            android:visibility="gone" />
+
+        <!-- 성적이 하나도 없을 때 -->
+        <TextView
+            android:id="@+id/exam_list_empty"
+            style="@style/TextBody"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/exam_list_empty"
+            android:textColor="@color/text_sub" />
+    </LinearLayout>
+
+    <!-- + 버튼 -->
+    <Button
+        android:id="@+id/exam_list_add"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|end"
+        android:background="@drawable/bg_button_primary"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        android:text="+"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:backgroundTint="@null" />
 
 </FrameLayout>

@@ -19,6 +19,7 @@ public class FirestorePaths {
     public static final String EXAMS = "exams";
     public static final String SCORES = "scores";
     public static final String NOTES = "notes";
+    public static final String SELECTIONS = "selections";   // 시험별로 고른 선택과목 (문서 이름 = uid_시험id)
 
     // 화면 이동할 때 Intent로 넘기는 값의 이름
     public static final String EXTRA_EXAM_ID = "examId";                  // String
